@@ -62,9 +62,28 @@ function doPost(e) {
   }
 }
 
-// Permet de tester l'URL dans le navigateur
-function doGet() {
-  return json({ ok: true, message: 'Gini Health waitlist endpoint actif' });
+// Nombre de places fondatrices (pour la barre de progression)
+const GOAL = 500;
+
+// GET : renvoie le compteur d'inscrites (pour la barre + la position en file).
+// Supporte le JSONP (?callback=...) pour être lisible côté navigateur malgré le CORS.
+function doGet(e) {
+  const p = (e && e.parameter) ? e.parameter : {};
+  const payload = { ok: true, count: getCount(), goal: GOAL, message: 'Gini Health waitlist endpoint actif' };
+  if (p.callback) {
+    return ContentService
+      .createTextOutput(p.callback + '(' + JSON.stringify(payload) + ');')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  return json(payload);
+}
+
+// Nombre d'inscrites = nombre de lignes - l'en-tête
+function getCount() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) return 0;
+  return Math.max(0, sheet.getLastRow() - 1);
 }
 
 function json(obj) {
