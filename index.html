@@ -343,8 +343,9 @@
 
       // Endpoint qui reçoit le formulaire (POST avec le champ "email").
       // Laisse "" pour le mode démo (confirmation affichée sans envoi réel).
-      // Exemples : Formspree -> "https://formspree.io/f/xxxxxxx"
-      //            Getform   -> "https://getform.io/f/xxxxxxx"
+      // Ici : URL de la web app Google Apps Script (collecte vers Google Sheets).
+      //   -> Déploie le script (Déployer > Web app > Accès : "Tout le monde")
+      //      puis colle l'URL ".../exec" ci-dessous.
       formEndpoint: "",
 
       successTitle: "Tu es sur la liste 🎉",
@@ -403,23 +404,21 @@
       // Mode démo : pas d'endpoint configuré -> on confirme directement.
       if (!CONFIG.formEndpoint) { showSuccess(); return; }
 
-      // Envoi réel
+      // Envoi réel vers la web app Google Apps Script.
       button.disabled = true;
       const original = button.textContent;
       button.innerHTML = '<span class="spinner" aria-hidden="true"></span>';
 
       try {
-        const res = await fetch(CONFIG.formEndpoint, {
+        // POST form-encodé en "no-cors" : c'est la méthode fiable avec Apps Script
+        // (pas de préflight CORS). La réponse est "opaque" — on ne peut pas lire son
+        // statut — donc si la requête aboutit sans erreur réseau, on confirme.
+        await fetch(CONFIG.formEndpoint, {
           method: "POST",
-          headers: { "Accept": "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
+          mode: "no-cors",
+          body: new URLSearchParams({ email, ua: navigator.userAgent }),
         });
-
-        if (res.ok) {
-          showSuccess();
-        } else {
-          setError("Oups, l'inscription a échoué. Réessaie dans un instant.");
-        }
+        showSuccess();
       } catch (err) {
         setError("Réseau indisponible. Vérifie ta connexion et réessaie.");
       } finally {
