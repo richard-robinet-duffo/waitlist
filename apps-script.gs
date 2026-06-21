@@ -1,18 +1,19 @@
 /**
  * Gini Health — Waitlist → Google Sheets
- * Reçoit les inscriptions (POST depuis index.html) et les ajoute à la feuille.
+ * Reçoit les inscriptions (POST depuis index.html) et les ajoute / met à jour
+ * dans la feuille "Signups".
  *
- * Installation :
- *   1. Crée une Google Sheet (sheets.new).
- *   2. Menu Extensions > Apps Script. Colle TOUT ce fichier (remplace le contenu).
- *   3. Déployer > Nouveau déploiement > type "Application Web".
- *        - Exécuter en tant que : Moi
- *        - Qui a accès        : Tout le monde
- *   4. Autorise l'accès quand Google le demande.
- *   5. Copie l'URL de l'app Web (se termine par /exec) -> donne-la à Claude.
+ * Le formulaire envoie en 2 temps :
+ *   1) email + firstName (+ ref de parrainage)        -> crée la ligne
+ *   2) email + reason (le qualifier choisi ensuite)   -> complète la même ligne
+ *
+ * ⚠️ Après avoir collé ce code : Enregistrer, puis
+ *    Déployer > Gérer les déploiements > ✏️ > Version : Nouvelle version > Déployer.
+ *    (L'URL /exec reste la même.)
  */
 
 const SHEET_NAME = 'Signups';
+const HEADERS = ['Date', 'Email', 'First Name', 'Reason', 'Referred By', 'User Agent'];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -22,32 +23,38 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     let sheet = ss.getSheetByName(SHEET_NAME);
     if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
+    if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS);
 
-    // En-têtes si la feuille est vide
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Date', 'Email', 'User Agent']);
-    }
+    const p = (e && e.parameter) ? e.parameter : {};
+    const email     = p.email     ? String(p.email).trim().toLowerCase() : '';
+    const firstName = p.firstName ? String(p.firstName).trim()           : '';
+    const reason    = p.reason    ? String(p.reason).trim()              : '';
+    const ref       = p.ref       ? String(p.ref).trim()                 : '';
+    const ua        = p.ua        ? String(p.ua)                         : '';
 
-    const email = (e && e.parameter && e.parameter.email)
-      ? String(e.parameter.email).trim().toLowerCase()
-      : '';
-    const ua = (e && e.parameter && e.parameter.ua) ? String(e.parameter.ua) : '';
+    if (!email) return json({ ok: false, error: 'no email' });
 
-    if (!email) {
-      return json({ ok: false, error: 'no email' });
-    }
-
-    // Anti-doublon : ne ré-ajoute pas un email déjà présent
+    // Cherche une ligne existante par email (colonne 2)
     const lastRow = sheet.getLastRow();
+    let rowIndex = -1;
     if (lastRow > 1) {
-      const existing = sheet.getRange(2, 2, lastRow - 1, 1).getValues().flat();
-      if (existing.indexOf(email) !== -1) {
-        return json({ ok: true, duplicate: true });
+      const emails = sheet.getRange(2, 2, lastRow - 1, 1).getValues();
+      for (let i = 0; i < emails.length; i++) {
+        if (String(emails[i][0]).trim().toLowerCase() === email) { rowIndex = i + 2; break; }
       }
     }
 
-    sheet.appendRow([new Date(), email, ua]);
-    return json({ ok: true });
+    if (rowIndex === -1) {
+      // Nouvelle inscription
+      sheet.appendRow([new Date(), email, firstName, reason, ref, ua]);
+      return json({ ok: true, created: true });
+    }
+
+    // Ligne existante : on ne remplit que ce qui est fourni (sans écraser à vide)
+    if (firstName && !sheet.getRange(rowIndex, 3).getValue()) sheet.getRange(rowIndex, 3).setValue(firstName);
+    if (reason)                                               sheet.getRange(rowIndex, 4).setValue(reason);
+    if (ref && !sheet.getRange(rowIndex, 5).getValue())       sheet.getRange(rowIndex, 5).setValue(ref);
+    return json({ ok: true, updated: true });
   } catch (err) {
     return json({ ok: false, error: String(err) });
   } finally {

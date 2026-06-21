@@ -3,36 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gini Health — At-home blood testing for women</title>
-  <meta name="description" content="The first at-home blood test built around the female cycle. Decode your hormones, beauty and longevity into insights you can act on — physician-backed. Join the waitlist." />
+  <title>Gini — By invitation</title>
+  <meta name="description" content="At-home blood testing for women, timed to your cycle. By invitation. Request access to the founding 500." />
 
-  <!-- Open Graph / réseaux sociaux -->
-  <meta property="og:title" content="Gini Health — Blood testing built around your cycle" />
-  <meta property="og:description" content="At-home blood testing for women. Hormonal health, beauty and longevity, decoded. Join the founding waitlist." />
+  <meta property="og:title" content="Gini — By invitation" />
+  <meta property="og:description" content="At-home blood testing for women, timed to your cycle. Private beta — request an invitation." />
   <meta property="og:type" content="website" />
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='none' stroke='%239c4a5c' stroke-width='8'/></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='none' stroke='%237a2e33' stroke-width='8'/></svg>" />
 
-  <!-- Google Fonts : Fraunces (serif display) + Inter (corps) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Space+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      /* ---- Couleur d'accent unique : change cette valeur pour reskin tout le site ---- */
-      --accent: #9c4a5c;            /* prune/baie sobre — pas de rose cliché */
-      --accent-deep: #7d3a49;
-      --accent-soft: rgba(156, 74, 92, 0.12);
-
-      --bg: #faf5ef;               /* ivoire chaud */
-      --bg-elev: #fffdfa;
-      --text: #2a2320;             /* espresso */
-      --text-dim: #7a6e66;         /* taupe chaud */
-      --border: rgba(42, 35, 32, 0.12);
-      --error: #b3402f;
-      --radius: 14px;
-      --maxw: 600px;
+      --accent: #7a2e33;            /* oxblood profond */
+      --accent-soft: rgba(122, 46, 51, 0.10);
+      --ink: #1c1815;
+      --bg: #f4f0e7;
+      --bg-elev: #fbf9f4;
+      --text: #1c1815;
+      --text-dim: #6f6459;
+      --border: rgba(28, 24, 21, 0.18);
+      --border-soft: rgba(28, 24, 21, 0.10);
+      --error: #9a3324;
+      --radius: 11px;
+      --maxw: 500px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,316 +37,263 @@
 
     body {
       font-family: "Inter", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: grid;
-      place-items: center;
-      padding: 32px 24px;
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; min-height: 100dvh;
+      display: grid; place-items: center;
+      padding: 40px 24px; line-height: 1.6;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
-
-    /* Halo chaud d'arrière-plan */
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background:
-        radial-gradient(900px circle at 50% -10%, rgba(156, 74, 92, 0.10), transparent 55%),
-        radial-gradient(700px circle at 100% 110%, rgba(201, 160, 120, 0.12), transparent 55%);
+      content: ""; position: fixed; inset: 0; z-index: -1;
+      background: radial-gradient(900px circle at 50% 120%, rgba(122, 46, 51, 0.05), transparent 60%);
       pointer-events: none;
     }
 
     .card {
-      width: 100%;
-      max-width: var(--maxw);
-      text-align: center;
-      animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      width: 100%; max-width: var(--maxw); text-align: center;
+      animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
-
     @keyframes rise {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Wordmark */
-    .brand {
-      font-family: "Fraunces", serif;
-      font-weight: 600;
-      font-size: 1.05rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 30px;
-      color: var(--text);
+    .mono {
+      font-family: "Space Mono", ui-monospace, monospace;
+      letter-spacing: 0.14em; text-transform: uppercase;
     }
-    .brand span { color: var(--accent); }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      color: var(--accent-deep);
-      border: 1px solid var(--accent-soft);
-      background: var(--accent-soft);
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 26px;
+    /* Wordmark codename */
+    .brand {
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-weight: 700; font-size: 1.15rem;
+      letter-spacing: 0.42em; text-transform: uppercase;
+      margin-bottom: 0; padding-left: 0.42em; color: var(--ink);
     }
-    .badge .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
+    .ref {
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-dim); margin-top: 8px;
+    }
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink); border: 1px solid var(--border);
+      padding: 7px 15px; border-radius: 999px;
+      margin: 44px 0 30px;
+    }
+    .tag .dot {
+      width: 6px; height: 6px; border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 0 0 var(--accent);
-      animation: pulse 2.6s infinite;
+      box-shadow: 0 0 0 0 var(--accent); animation: pulse 2.8s infinite;
     }
     @keyframes pulse {
-      0%   { box-shadow: 0 0 0 0 rgba(156, 74, 92, 0.5); }
-      70%  { box-shadow: 0 0 0 8px rgba(156, 74, 92, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(156, 74, 92, 0); }
+      0%   { box-shadow: 0 0 0 0 rgba(122, 46, 51, 0.5); }
+      70%  { box-shadow: 0 0 0 7px rgba(122, 46, 51, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(122, 46, 51, 0); }
     }
 
     h1 {
       font-family: "Fraunces", serif;
-      font-size: clamp(2.3rem, 6.5vw, 3.7rem);
-      font-weight: 500;
-      line-height: 1.04;
-      letter-spacing: -0.015em;
-      margin-bottom: 20px;
+      font-size: clamp(2.1rem, 5.6vw, 3rem);
+      font-weight: 500; line-height: 1.08;
+      letter-spacing: -0.015em; margin-bottom: 18px;
     }
-    h1 em {
-      font-style: italic;
-      color: var(--accent);
+    h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+    .subline {
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 0.72rem; letter-spacing: 0.08em;
+      color: var(--text-dim); margin-bottom: 38px;
     }
 
-    .subtitle {
-      color: var(--text-dim);
-      font-size: clamp(1.02rem, 2.4vw, 1.18rem);
-      max-width: 480px;
-      margin: 0 auto 30px;
-    }
-
-    /* Trois piliers */
-    .pillars {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px 0;
-      list-style: none;
-      margin: 0 auto 36px;
-      font-family: "Fraunces", serif;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-    .pillars li { padding: 0 18px; position: relative; }
-    .pillars li + li::before {
-      content: "";
-      position: absolute; left: 0; top: 50%;
-      width: 1px; height: 14px;
-      transform: translateY(-50%);
-      background: var(--border);
-    }
-
-    /* ---- Formulaire ---- */
-    form {
-      display: flex;
-      gap: 10px;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    @media (max-width: 480px) { form { flex-direction: column; } }
-
+    /* ---- Formulaire (étape 1) ---- */
+    form { display: flex; gap: 9px; max-width: 420px; margin: 0 auto; }
+    @media (max-width: 460px) { form { flex-direction: column; } }
     .field { position: relative; flex: 1; text-align: left; }
 
     input[type="email"] {
-      width: 100%;
-      font: inherit;
-      color: var(--text);
+      width: 100%; font: inherit; color: var(--text);
       background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 15px 16px;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 14px 15px; transition: border-color 0.2s, box-shadow 0.2s;
     }
-    input[type="email"]::placeholder { color: var(--text-dim); }
-    input[type="email"]:hover { border-color: rgba(42, 35, 32, 0.22); }
-    input[type="email"]:focus-visible {
-      outline: none;
-      border-color: var(--accent);
+    input::placeholder { color: #a89c8f; }
+    input:hover { border-color: rgba(28, 24, 21, 0.32); }
+    input:focus-visible {
+      outline: none; border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-soft);
     }
-    .field.invalid input[type="email"] {
-      border-color: var(--error);
-      box-shadow: 0 0 0 3px rgba(179, 64, 47, 0.14);
+    .field.invalid input {
+      border-color: var(--error); box-shadow: 0 0 0 3px rgba(154, 51, 36, 0.12);
     }
 
-    button {
-      font: inherit;
-      font-weight: 600;
-      color: #fffdfa;
-      background: var(--accent);
-      border: none;
-      border-radius: var(--radius);
-      padding: 15px 26px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: transform 0.12s, background 0.2s, opacity 0.2s;
+    button.submit {
+      font: inherit; font-weight: 500;
+      color: var(--bg); background: var(--ink);
+      border: none; border-radius: var(--radius);
+      padding: 14px 22px; cursor: pointer; white-space: nowrap;
+      transition: transform 0.12s, background 0.25s;
     }
-    button:hover { background: var(--accent-deep); }
-    button:active { transform: scale(0.97); }
-    button:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
+    button.submit:hover { background: var(--accent); }
+    button.submit:active { transform: scale(0.985); }
+    button.submit:focus-visible {
+      outline: none; box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
     }
-    button[disabled] { opacity: 0.6; cursor: not-allowed; }
+    button.submit[disabled] { opacity: 0.6; cursor: not-allowed; }
 
     .spinner {
-      display: inline-block;
-      width: 15px; height: 15px;
-      border: 2px solid rgba(255, 253, 250, 0.4);
-      border-top-color: #fffdfa;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: -2px;
+      display: inline-block; width: 15px; height: 15px;
+      border: 2px solid rgba(244, 240, 231, 0.4); border-top-color: var(--bg);
+      border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -2px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .msg {
-      min-height: 1.2em;
-      margin-top: 14px;
-      font-size: 0.9rem;
-      color: var(--error);
-      text-align: center;
-    }
-    .hint {
-      margin-top: 22px;
-      font-size: 0.82rem;
+    .msg { min-height: 1.2em; margin-top: 13px; font-size: 0.86rem; color: var(--error); }
+    .foot {
+      margin-top: 26px;
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--text-dim);
     }
 
-    /* Bandeau de réassurance */
-    .trust {
-      margin-top: 40px;
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
+    /* ---- Étape 2 : confirmation + qualifier + parrainage ---- */
+    .step2 { display: none; }
+    .step2.show { display: block; animation: rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 
-    /* ---- État de confirmation ---- */
-    .success {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-    }
-    .success.show {
-      display: flex;
-      animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-    .checkmark { width: 72px; height: 72px; }
+    .checkmark { width: 58px; height: 58px; margin: 0 auto 16px; display: block; }
     .checkmark circle {
-      stroke: var(--accent);
-      stroke-width: 3;
-      fill: var(--accent-soft);
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      animation: draw 0.6s ease forwards;
+      stroke: var(--accent); stroke-width: 3; fill: var(--accent-soft);
+      stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw 0.6s ease forwards;
     }
     .checkmark path {
-      stroke: var(--accent);
-      stroke-width: 4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      fill: none;
-      stroke-dasharray: 60;
-      stroke-dashoffset: 60;
-      animation: draw 0.4s 0.4s ease forwards;
+      stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+      fill: none; stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw 0.4s 0.4s ease forwards;
     }
     @keyframes draw { to { stroke-dashoffset: 0; } }
-    .success h2 {
-      font-family: "Fraunces", serif;
-      font-size: 1.7rem;
-      font-weight: 500;
-    }
-    .success p { color: var(--text-dim); max-width: 380px; }
 
-    /* ---- Accessibilité : mouvement réduit ---- */
+    .step2 h2 { font-family: "Fraunces", serif; font-size: 1.7rem; font-weight: 500; }
+    .step2 .lead { color: var(--text-dim); max-width: 360px; margin: 8px auto 0; font-size: 0.95rem; }
+
+    .divider { width: 100%; max-width: 380px; height: 1px; background: var(--border-soft); margin: 28px auto; }
+
+    .qualifier-q { font-family: "Fraunces", serif; font-size: 1.05rem; margin-bottom: 4px; }
+    .qualifier-note {
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 16px;
+    }
+    .chips {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+      max-width: 440px; margin: 0 auto; border: 0; padding: 0;
+    }
+    .chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .chip span {
+      display: inline-block; cursor: pointer; font-size: 0.85rem; color: var(--text);
+      background: var(--bg-elev); border: 1px solid var(--border);
+      padding: 9px 14px; border-radius: 999px;
+      transition: border-color 0.18s, background 0.18s, color 0.18s;
+    }
+    .chip span:hover { border-color: var(--accent); }
+    .chip input:checked + span { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+    .chip input:focus-visible + span { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent); }
+    .saved {
+      min-height: 1.1em; margin-top: 15px;
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); opacity: 0; transition: opacity 0.3s;
+    }
+    .saved.show { opacity: 1; }
+
+    .referral { margin-top: 28px; }
+    .referral .label { font-family: "Fraunces", serif; font-size: 1rem; margin-bottom: 12px; }
+    .share-row { display: flex; gap: 8px; max-width: 400px; margin: 0 auto; }
+    .share-row input {
+      flex: 1; font-size: 0.8rem; color: var(--text-dim);
+      background: var(--bg-elev); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 11px 13px;
+    }
+    .copy-btn {
+      font: inherit; font-size: 0.82rem; font-weight: 500; color: var(--ink);
+      background: transparent; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 0 17px; cursor: pointer; white-space: nowrap;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent); }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
+        animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
       }
       .checkmark circle, .checkmark path { stroke-dashoffset: 0; }
     }
-
     .visually-hidden {
-      position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
-      white-space: nowrap; border: 0;
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
   </style>
 </head>
 <body>
   <main class="card">
-    <!-- VUE 1 : inscription -->
+    <!-- ÉTAPE 1 : demande d'invitation -->
     <div id="signup">
-      <div class="brand">Gini<span>.</span>Health</div>
+      <div class="brand">Gini</div>
+      <div class="ref">Women's Health · Est. 2026</div>
 
-      <span class="badge"><span class="dot" aria-hidden="true"></span> Early access · Founding 500</span>
+      <span class="tag"><span class="dot" aria-hidden="true"></span> Confidential · By invitation</span>
 
-      <h1 id="title">Blood testing, built around <em>your cycle</em></h1>
-      <p class="subtitle" id="subtitle">
-        At-home blood testing for women — turning your hormones, beauty and longevity markers into insights you can actually act on. Physician-backed, tracked over time.
-      </p>
-
-      <ul class="pillars" aria-label="What we measure">
-        <li>Hormonal health</li>
-        <li>Beauty</li>
-        <li>Longevity</li>
-      </ul>
+      <h1 id="title">Bloodwork, built around <em>your cycle</em></h1>
+      <p class="subline mono" id="subline">At-home · For women · Private beta</p>
 
       <form id="waitlist-form" novalidate>
-        <div class="field" id="field">
+        <div class="field" id="email-field">
           <label for="email" class="visually-hidden">Email address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="you@email.com"
-            autocomplete="email"
-            inputmode="email"
-            required
-            aria-describedby="form-msg"
-          />
+          <input type="email" id="email" name="email" placeholder="you@email.com"
+                 autocomplete="email" inputmode="email" required aria-describedby="form-msg" />
         </div>
-        <button type="submit" id="submit">Join the waitlist</button>
+        <button type="submit" class="submit" id="submit">Request an invitation</button>
       </form>
 
       <p class="msg" id="form-msg" role="alert" aria-live="polite"></p>
-      <p class="hint">Be one of our founding 500. No spam — just one email when we open access.</p>
-
-      <p class="trust">At-home · Physician-backed · Built around your cycle</p>
+      <p class="foot">Founding 500 · Invitations open in waves</p>
     </div>
 
-    <!-- VUE 2 : confirmation -->
-    <div class="success" id="success" role="status" aria-live="polite">
+    <!-- ÉTAPE 2 : confirmation sélective + qualifier + parrainage -->
+    <div class="step2" id="step2" role="status" aria-live="polite">
       <svg class="checkmark" viewBox="0 0 80 80" aria-hidden="true">
         <circle cx="40" cy="40" r="36" />
         <path d="M25 41 L36 52 L56 30" />
       </svg>
-      <h2>You're on the list</h2>
-      <p id="success-text">Welcome — you're in line for our founding 500. We'll reach out by email as we open access.</p>
+      <h2 id="step2-title">Request received</h2>
+      <p class="lead">We review every application. If it's a fit, you'll hear from us as we open the next wave.</p>
+
+      <div class="divider"></div>
+
+      <div id="qualifier">
+        <p class="qualifier-q">What brought you here?</p>
+        <p class="qualifier-note">Optional · helps us prioritize</p>
+        <fieldset class="chips" id="chips">
+          <legend class="visually-hidden">What brought you here?</legend>
+          <label class="chip"><input type="radio" name="reason" value="Irregular or missing periods" /><span>Irregular or missing periods</span></label>
+          <label class="chip"><input type="radio" name="reason" value="Trying to conceive" /><span>Trying to conceive</span></label>
+          <label class="chip"><input type="radio" name="reason" value="Energy, skin & hair" /><span>Energy, skin &amp; hair</span></label>
+          <label class="chip"><input type="radio" name="reason" value="Results keep coming back normal" /><span>Results keep coming back “normal”</span></label>
+          <label class="chip"><input type="radio" name="reason" value="Just exploring" /><span>Just exploring</span></label>
+        </fieldset>
+        <p class="saved" id="saved">✓ Noted — thank you</p>
+      </div>
+
+      <div class="referral">
+        <p class="label">Move up the list</p>
+        <div class="share-row">
+          <input type="text" id="share-link" readonly aria-label="Your private referral link" />
+          <button type="button" class="copy-btn" id="copy-btn">Copy</button>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -358,89 +302,107 @@
        CONFIG — Modifie uniquement ce bloc pour personnaliser le site
        ============================================================ */
     const CONFIG = {
-      productName: "Gini Health",
+      productName: "Gini",
       // Le titre accepte du HTML : <em>...</em> met le mot en italique + accent.
-      title:       "Blood testing, built around <em>your cycle</em>",
-      subtitle:    "At-home blood testing for women — turning your hormones, beauty and longevity markers into insights you can actually act on. Physician-backed, tracked over time.",
+      title:    "Bloodwork, built around <em>your cycle</em>",
+      subline:  "At-home · For women · Private beta",
 
-      // Endpoint qui reçoit le formulaire (POST avec le champ "email").
-      // Laisse "" pour le mode démo (confirmation affichée sans envoi réel).
-      // Ici : URL de la web app Google Apps Script (collecte vers Google Sheets).
-      formEndpoint: "https://script.google.com/macros/s/AKfycbxDZ013G6jIyvd8JchCYrfNVPXr7Zwmj450YuVacrejPpk5Lpz1ETqNsLU4DYthu3o1sA/exec",
+      // URL de la web app Google Apps Script (collecte vers Google Sheets).
+      // Laisse "" pour le mode démo. Stocke email + reason + ref de parrainage.
+      formEndpoint: "https://script.google.com/macros/s/AKfycby9sK8fZdq-_wx7EYVfNr1RVBqiGGEpzVayRy9ODVl_8ybCvv1T3Wfl0vltKU-rV_FPLA/exec",
 
-      successTitle: "You're on the list",
-      successText:  "Welcome — you're in line for our founding 500. We'll reach out by email as we open access.",
+      ctaLabel: "Request an invitation",
+      successTitle: "Request received",
     };
     /* ============================================================ */
 
-    // --- Application de la config au DOM ---
-    document.title = CONFIG.productName + " — At-home blood testing for women";
+    document.title = CONFIG.productName + " — By invitation";
     document.getElementById("title").innerHTML = CONFIG.title;
-    document.getElementById("subtitle").textContent = CONFIG.subtitle;
-    document.querySelector(".success h2").textContent = CONFIG.successTitle;
-    document.getElementById("success-text").textContent = CONFIG.successText;
+    document.getElementById("subline").textContent = CONFIG.subline;
+    document.getElementById("submit").textContent = CONFIG.ctaLabel;
+    document.getElementById("step2-title").textContent = CONFIG.successTitle;
 
-    // --- Éléments ---
-    const form    = document.getElementById("waitlist-form");
-    const field   = document.getElementById("field");
-    const input   = document.getElementById("email");
-    const button  = document.getElementById("submit");
-    const msg      = document.getElementById("form-msg");
-    const signup  = document.getElementById("signup");
-    const success = document.getElementById("success");
+    const form      = document.getElementById("waitlist-form");
+    const input     = document.getElementById("email");
+    const emailField= document.getElementById("email-field");
+    const button    = document.getElementById("submit");
+    const msg       = document.getElementById("form-msg");
+    const signup    = document.getElementById("signup");
+    const step2     = document.getElementById("step2");
+    const savedMsg  = document.getElementById("saved");
+
+    const refParam  = new URLSearchParams(location.search).get("ref") || "";
+    let signedEmail = "";
 
     const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
     function setError(text) {
       msg.textContent = text;
-      field.classList.add("invalid");
+      emailField.classList.add("invalid");
       input.setAttribute("aria-invalid", "true");
     }
     function clearError() {
       msg.textContent = "";
-      field.classList.remove("invalid");
+      emailField.classList.remove("invalid");
       input.removeAttribute("aria-invalid");
     }
     input.addEventListener("input", clearError);
 
-    function showSuccess() {
-      signup.style.display = "none";
-      success.classList.add("show");
-      success.focus?.();
+    // Envoi vers Apps Script (no-cors : réponse opaque, fire-and-forget)
+    function send(data) {
+      if (!CONFIG.formEndpoint) return Promise.resolve();
+      return fetch(CONFIG.formEndpoint, {
+        method: "POST", mode: "no-cors", body: new URLSearchParams(data),
+      });
     }
 
+    function showStep2() {
+      document.getElementById("share-link").value =
+        `${location.origin}/?ref=${encodeURIComponent(signedEmail)}`;
+      signup.style.display = "none";
+      step2.classList.add("show");
+      step2.focus?.();
+    }
+
+    // Étape 1 : email
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = input.value.trim();
-
       if (!email) { setError("Please enter your email."); input.focus(); return; }
       if (!isValidEmail(email)) { setError("That email doesn't look quite right."); input.focus(); return; }
-
       clearError();
 
-      // Mode démo : pas d'endpoint configuré -> on confirme directement.
-      if (!CONFIG.formEndpoint) { showSuccess(); return; }
-
-      // Envoi réel vers la web app Google Apps Script.
+      signedEmail = email;
       button.disabled = true;
       const original = button.textContent;
       button.innerHTML = '<span class="spinner" aria-hidden="true"></span>';
 
       try {
-        // POST form-encodé en "no-cors" : méthode fiable avec Apps Script
-        // (pas de préflight CORS). Réponse opaque -> succès si pas d'erreur réseau.
-        await fetch(CONFIG.formEndpoint, {
-          method: "POST",
-          mode: "no-cors",
-          body: new URLSearchParams({ email, ua: navigator.userAgent }),
-        });
-        showSuccess();
+        await send({ email, ref: refParam, ua: navigator.userAgent });
+        showStep2();
       } catch (err) {
         setError("Network unavailable. Check your connection and try again.");
       } finally {
         button.disabled = false;
         button.textContent = original;
       }
+    });
+
+    // Étape 2 : qualifier (complète la même ligne)
+    document.getElementById("chips").addEventListener("change", (e) => {
+      if (e.target.name !== "reason") return;
+      send({ email: signedEmail, reason: e.target.value });
+      savedMsg.classList.add("show");
+    });
+
+    // Copie du lien de parrainage
+    document.getElementById("copy-btn").addEventListener("click", async () => {
+      const link = document.getElementById("share-link");
+      try { await navigator.clipboard.writeText(link.value); }
+      catch (_) { link.select(); document.execCommand("copy"); }
+      const btn = document.getElementById("copy-btn");
+      btn.textContent = "Copied ✓";
+      setTimeout(() => { btn.textContent = "Copy"; }, 1800);
     });
   </script>
 </body>
