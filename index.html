@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gini Code — Rejoindre la liste d'attente</title>
+  <meta name="description" content="Gini Code arrive bientôt. Inscris-toi à la liste d'attente pour être prévenu·e au lancement." />
+
+  <!-- Open Graph / réseaux sociaux -->
+  <meta property="og:title" content="Gini Code — Liste d'attente" />
+  <meta property="og:description" content="Inscris-toi pour être prévenu·e au lancement." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      /* ---- Couleur d'accent unique : change cette valeur pour reskin tout le site ---- */
+      --accent: #7c83ff;
+      --accent-soft: rgba(124, 131, 255, 0.14);
+
+      --bg: #0a0a0f;
+      --bg-elev: #14141d;
+      --text: #f4f4f8;
+      --text-dim: #9a9aab;
+      --border: rgba(255, 255, 255, 0.08);
+      --error: #ff6b6b;
+      --radius: 14px;
+      --maxw: 540px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Halo lumineux d'arrière-plan */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(600px circle at 50% 0%, var(--accent-soft), transparent 60%),
+        radial-gradient(800px circle at 80% 100%, rgba(124, 131, 255, 0.06), transparent 60%);
+      pointer-events: none;
+    }
+
+    .card {
+      width: 100%;
+      max-width: var(--maxw);
+      text-align: center;
+      animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+
+    .badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 var(--accent);
+      animation: pulse 2.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(124, 131, 255, 0.6); }
+      70%  { box-shadow: 0 0 0 8px rgba(124, 131, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(124, 131, 255, 0); }
+    }
+
+    h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.1rem, 6vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    h1 .accent {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+
+    /* ---- Formulaire ---- */
+    form {
+      display: flex;
+      gap: 10px;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 480px) {
+      form { flex-direction: column; }
+    }
+
+    .field {
+      position: relative;
+      flex: 1;
+      text-align: left;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      font: inherit;
+      color: var(--text);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="email"]::placeholder { color: var(--text-dim); }
+
+    input[type="email"]:hover { border-color: rgba(255, 255, 255, 0.16); }
+
+    input[type="email"]:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .field.invalid input[type="email"] {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.14);
+    }
+
+    button {
+      font: inherit;
+      font-weight: 600;
+      color: #0a0a0f;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius);
+      padding: 15px 24px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.12s, filter 0.2s, opacity 0.2s;
+    }
+
+    button:hover { filter: brightness(1.08); }
+    button:active { transform: scale(0.97); }
+
+    button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
+    }
+
+    button[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+    /* Mini-spinner pendant l'envoi */
+    .spinner {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(10, 10, 15, 0.35);
+      border-top-color: #0a0a0f;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: -2px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .msg {
+      min-height: 1.2em;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: var(--error);
+      text-align: center;
+    }
+
+    .hint {
+      margin-top: 24px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    /* ---- État de confirmation ---- */
+    .success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .success.show {
+      display: flex;
+      animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .checkmark {
+      width: 72px;
+      height: 72px;
+    }
+
+    .checkmark circle {
+      stroke: var(--accent);
+      stroke-width: 3;
+      fill: var(--accent-soft);
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: draw 0.6s ease forwards;
+    }
+
+    .checkmark path {
+      stroke: var(--accent);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: draw 0.4s 0.4s ease forwards;
+    }
+
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    .success h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .success p { color: var(--text-dim); max-width: 360px; }
+
+    /* ---- Accessibilité : mouvement réduit ---- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      .checkmark circle, .checkmark path { stroke-dashoffset: 0; }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- VUE 1 : formulaire d'inscription -->
+    <div id="signup">
+      <span class="badge"><span class="dot" aria-hidden="true"></span> Bientôt disponible</span>
+
+      <h1 id="title">Le futur du code, <span class="accent">en avant-première</span></h1>
+      <p class="subtitle" id="subtitle">
+        Gini Code arrive bientôt. Laisse ton email pour être prévenu·e dès l'ouverture — et rejoindre les premiers.
+      </p>
+
+      <form id="waitlist-form" novalidate>
+        <div class="field" id="field">
+          <label for="email" class="visually-hidden">Adresse email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="ton@email.com"
+            autocomplete="email"
+            inputmode="email"
+            required
+            aria-describedby="form-msg"
+          />
+        </div>
+        <button type="submit" id="submit">Rejoindre</button>
+      </form>
+
+      <p class="msg" id="form-msg" role="alert" aria-live="polite"></p>
+      <p class="hint">Pas de spam. Un seul email, au lancement.</p>
+    </div>
+
+    <!-- VUE 2 : confirmation -->
+    <div class="success" id="success" role="status" aria-live="polite">
+      <svg class="checkmark" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="36" />
+        <path d="M25 41 L36 52 L56 30" />
+      </svg>
+      <h2>Tu es sur la liste 🎉</h2>
+      <p id="success-text">Merci ! On te prévient par email dès que Gini Code ouvre ses portes.</p>
+    </div>
+  </main>
+
+  <script>
+    /* ============================================================
+       CONFIG — Modifie uniquement ce bloc pour personnaliser le site
+       ============================================================ */
+    const CONFIG = {
+      productName: "Gini Code",
+      title:       "Le futur du code, <span class='accent'>en avant-première</span>",
+      subtitle:    "Gini Code arrive bientôt. Laisse ton email pour être prévenu·e dès l'ouverture — et rejoindre les premiers.",
+
+      // Endpoint qui reçoit le formulaire (POST avec le champ "email").
+      // Laisse "" pour le mode démo (confirmation affichée sans envoi réel).
+      // Exemples : Formspree -> "https://formspree.io/f/xxxxxxx"
+      //            Getform   -> "https://getform.io/f/xxxxxxx"
+      formEndpoint: "",
+
+      successTitle: "Tu es sur la liste 🎉",
+      successText:  "Merci ! On te prévient par email dès que Gini Code ouvre ses portes.",
+    };
+    /* ============================================================ */
+
+    // --- Application de la config au DOM ---
+    document.title = CONFIG.productName + " — Rejoindre la liste d'attente";
+    document.getElementById("title").innerHTML = CONFIG.title;
+    document.getElementById("subtitle").textContent = CONFIG.subtitle;
+    document.querySelector(".success h2").textContent = CONFIG.successTitle;
+    document.getElementById("success-text").textContent = CONFIG.successText;
+
+    // --- Éléments ---
+    const form    = document.getElementById("waitlist-form");
+    const field   = document.getElementById("field");
+    const input   = document.getElementById("email");
+    const button  = document.getElementById("submit");
+    const msg      = document.getElementById("form-msg");
+    const signup  = document.getElementById("signup");
+    const success = document.getElementById("success");
+
+    // Validation email (simple et robuste)
+    const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+
+    function setError(text) {
+      msg.textContent = text;
+      field.classList.add("invalid");
+      input.setAttribute("aria-invalid", "true");
+    }
+
+    function clearError() {
+      msg.textContent = "";
+      field.classList.remove("invalid");
+      input.removeAttribute("aria-invalid");
+    }
+
+    input.addEventListener("input", clearError);
+
+    function showSuccess() {
+      signup.style.display = "none";
+      success.classList.add("show");
+      success.focus?.();
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = input.value.trim();
+
+      if (!email) { setError("Entre ton adresse email."); input.focus(); return; }
+      if (!isValidEmail(email)) { setError("Cette adresse email semble invalide."); input.focus(); return; }
+
+      clearError();
+
+      // Mode démo : pas d'endpoint configuré -> on confirme directement.
+      if (!CONFIG.formEndpoint) { showSuccess(); return; }
+
+      // Envoi réel
+      button.disabled = true;
+      const original = button.textContent;
+      button.innerHTML = '<span class="spinner" aria-hidden="true"></span>';
+
+      try {
+        const res = await fetch(CONFIG.formEndpoint, {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        if (res.ok) {
+          showSuccess();
+        } else {
+          setError("Oups, l'inscription a échoué. Réessaie dans un instant.");
+        }
+      } catch (err) {
+        setError("Réseau indisponible. Vérifie ta connexion et réessaie.");
+      } finally {
+        button.disabled = false;
+        button.textContent = original;
+      }
+    });
+  </script>
+</body>
+</html>
