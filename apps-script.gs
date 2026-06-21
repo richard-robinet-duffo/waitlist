@@ -57,7 +57,7 @@ function doPost(e) {
 
 // Permet de tester l'URL dans le navigateur
 function doGet() {
-  return json({ ok: true, message: 'Gini Code waitlist endpoint actif' });
+  return json({ ok: true, message: 'Gini Health waitlist endpoint actif' });
 }
 
 function json(obj) {
