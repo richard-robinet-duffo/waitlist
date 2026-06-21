@@ -1,41 +1,41 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gini Code — Rejoindre la liste d'attente</title>
-  <meta name="description" content="Gini Code arrive bientôt. Inscris-toi à la liste d'attente pour être prévenu·e au lancement." />
+  <title>Gini Health — At-home blood testing for women</title>
+  <meta name="description" content="The first at-home blood test built around the female cycle. Decode your hormones, beauty and longevity into insights you can act on — physician-backed. Join the waitlist." />
 
   <!-- Open Graph / réseaux sociaux -->
-  <meta property="og:title" content="Gini Code — Liste d'attente" />
-  <meta property="og:description" content="Inscris-toi pour être prévenu·e au lancement." />
+  <meta property="og:title" content="Gini Health — Blood testing built around your cycle" />
+  <meta property="og:description" content="At-home blood testing for women. Hormonal health, beauty and longevity, decoded. Join the founding waitlist." />
   <meta property="og:type" content="website" />
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='none' stroke='%239c4a5c' stroke-width='8'/></svg>" />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts : Fraunces (serif display) + Inter (corps) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
       /* ---- Couleur d'accent unique : change cette valeur pour reskin tout le site ---- */
-      --accent: #7c83ff;
-      --accent-soft: rgba(124, 131, 255, 0.14);
+      --accent: #9c4a5c;            /* prune/baie sobre — pas de rose cliché */
+      --accent-deep: #7d3a49;
+      --accent-soft: rgba(156, 74, 92, 0.12);
 
-      --bg: #0a0a0f;
-      --bg-elev: #14141d;
-      --text: #f4f4f8;
-      --text-dim: #9a9aab;
-      --border: rgba(255, 255, 255, 0.08);
-      --error: #ff6b6b;
+      --bg: #faf5ef;               /* ivoire chaud */
+      --bg-elev: #fffdfa;
+      --text: #2a2320;             /* espresso */
+      --text-dim: #7a6e66;         /* taupe chaud */
+      --border: rgba(42, 35, 32, 0.12);
+      --error: #b3402f;
       --radius: 14px;
-      --maxw: 540px;
+      --maxw: 600px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { -webkit-text-size-adjust: 100%; }
 
     body {
@@ -46,21 +46,21 @@
       min-height: 100dvh;
       display: grid;
       place-items: center;
-      padding: 24px;
+      padding: 32px 24px;
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Halo lumineux d'arrière-plan */
+    /* Halo chaud d'arrière-plan */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       z-index: -1;
       background:
-        radial-gradient(600px circle at 50% 0%, var(--accent-soft), transparent 60%),
-        radial-gradient(800px circle at 80% 100%, rgba(124, 131, 255, 0.06), transparent 60%);
+        radial-gradient(900px circle at 50% -10%, rgba(156, 74, 92, 0.10), transparent 55%),
+        radial-gradient(700px circle at 100% 110%, rgba(201, 160, 120, 0.12), transparent 55%);
       pointer-events: none;
     }
 
@@ -76,73 +76,96 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* Wordmark */
+    .brand {
+      font-family: "Fraunces", serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      color: var(--text);
+    }
+    .brand span { color: var(--accent); }
+
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
-      letter-spacing: 0.02em;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      background: var(--bg-elev);
+      letter-spacing: 0.03em;
+      color: var(--accent-deep);
+      border: 1px solid var(--accent-soft);
+      background: var(--accent-soft);
       padding: 6px 14px;
       border-radius: 999px;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
     }
-
     .badge .dot {
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 0 0 0 var(--accent);
-      animation: pulse 2.4s infinite;
+      animation: pulse 2.6s infinite;
     }
-
     @keyframes pulse {
-      0%   { box-shadow: 0 0 0 0 rgba(124, 131, 255, 0.6); }
-      70%  { box-shadow: 0 0 0 8px rgba(124, 131, 255, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(124, 131, 255, 0); }
+      0%   { box-shadow: 0 0 0 0 rgba(156, 74, 92, 0.5); }
+      70%  { box-shadow: 0 0 0 8px rgba(156, 74, 92, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(156, 74, 92, 0); }
     }
 
     h1 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(2.1rem, 6vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.3rem, 6.5vw, 3.7rem);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
     }
-
-    h1 .accent {
+    h1 em {
+      font-style: italic;
       color: var(--accent);
     }
 
     .subtitle {
       color: var(--text-dim);
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
-      max-width: 440px;
+      font-size: clamp(1.02rem, 2.4vw, 1.18rem);
+      max-width: 480px;
+      margin: 0 auto 30px;
+    }
+
+    /* Trois piliers */
+    .pillars {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 0;
+      list-style: none;
       margin: 0 auto 36px;
+      font-family: "Fraunces", serif;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .pillars li { padding: 0 18px; position: relative; }
+    .pillars li + li::before {
+      content: "";
+      position: absolute; left: 0; top: 50%;
+      width: 1px; height: 14px;
+      transform: translateY(-50%);
+      background: var(--border);
     }
 
     /* ---- Formulaire ---- */
     form {
       display: flex;
       gap: 10px;
-      max-width: 460px;
+      max-width: 480px;
       margin: 0 auto;
     }
+    @media (max-width: 480px) { form { flex-direction: column; } }
 
-    @media (max-width: 480px) {
-      form { flex-direction: column; }
-    }
-
-    .field {
-      position: relative;
-      flex: 1;
-      text-align: left;
-    }
+    .field { position: relative; flex: 1; text-align: left; }
 
     input[type="email"] {
       width: 100%;
@@ -154,57 +177,47 @@
       padding: 15px 16px;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-
     input[type="email"]::placeholder { color: var(--text-dim); }
-
-    input[type="email"]:hover { border-color: rgba(255, 255, 255, 0.16); }
-
+    input[type="email"]:hover { border-color: rgba(42, 35, 32, 0.22); }
     input[type="email"]:focus-visible {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-soft);
     }
-
     .field.invalid input[type="email"] {
       border-color: var(--error);
-      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.14);
+      box-shadow: 0 0 0 3px rgba(179, 64, 47, 0.14);
     }
 
     button {
       font: inherit;
       font-weight: 600;
-      color: #0a0a0f;
+      color: #fffdfa;
       background: var(--accent);
       border: none;
       border-radius: var(--radius);
-      padding: 15px 24px;
+      padding: 15px 26px;
       cursor: pointer;
       white-space: nowrap;
-      transition: transform 0.12s, filter 0.2s, opacity 0.2s;
+      transition: transform 0.12s, background 0.2s, opacity 0.2s;
     }
-
-    button:hover { filter: brightness(1.08); }
+    button:hover { background: var(--accent-deep); }
     button:active { transform: scale(0.97); }
-
     button:focus-visible {
       outline: none;
       box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
     }
-
     button[disabled] { opacity: 0.6; cursor: not-allowed; }
 
-    /* Mini-spinner pendant l'envoi */
     .spinner {
       display: inline-block;
-      width: 15px;
-      height: 15px;
-      border: 2px solid rgba(10, 10, 15, 0.35);
-      border-top-color: #0a0a0f;
+      width: 15px; height: 15px;
+      border: 2px solid rgba(255, 253, 250, 0.4);
+      border-top-color: #fffdfa;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       vertical-align: -2px;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .msg {
@@ -214,10 +227,18 @@
       color: var(--error);
       text-align: center;
     }
-
     .hint {
-      margin-top: 24px;
+      margin-top: 22px;
       font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    /* Bandeau de réassurance */
+    .trust {
+      margin-top: 40px;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--text-dim);
     }
 
@@ -228,17 +249,11 @@
       align-items: center;
       gap: 18px;
     }
-
     .success.show {
       display: flex;
       animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
-
-    .checkmark {
-      width: 72px;
-      height: 72px;
-    }
-
+    .checkmark { width: 72px; height: 72px; }
     .checkmark circle {
       stroke: var(--accent);
       stroke-width: 3;
@@ -247,7 +262,6 @@
       stroke-dashoffset: 200;
       animation: draw 0.6s ease forwards;
     }
-
     .checkmark path {
       stroke: var(--accent);
       stroke-width: 4;
@@ -258,16 +272,13 @@
       stroke-dashoffset: 60;
       animation: draw 0.4s 0.4s ease forwards;
     }
-
     @keyframes draw { to { stroke-dashoffset: 0; } }
-
     .success h2 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-family: "Fraunces", serif;
+      font-size: 1.7rem;
+      font-weight: 500;
     }
-
-    .success p { color: var(--text-dim); max-width: 360px; }
+    .success p { color: var(--text-dim); max-width: 380px; }
 
     /* ---- Accessibilité : mouvement réduit ---- */
     @media (prefers-reduced-motion: reduce) {
@@ -291,34 +302,44 @@
 </head>
 <body>
   <main class="card">
-    <!-- VUE 1 : formulaire d'inscription -->
+    <!-- VUE 1 : inscription -->
     <div id="signup">
-      <span class="badge"><span class="dot" aria-hidden="true"></span> Bientôt disponible</span>
+      <div class="brand">Gini<span>.</span>Health</div>
 
-      <h1 id="title">Le futur du code, <span class="accent">en avant-première</span></h1>
+      <span class="badge"><span class="dot" aria-hidden="true"></span> Early access · Founding 500</span>
+
+      <h1 id="title">Blood testing, built around <em>your cycle</em></h1>
       <p class="subtitle" id="subtitle">
-        Gini Code arrive bientôt. Laisse ton email pour être prévenu·e dès l'ouverture — et rejoindre les premiers.
+        At-home blood testing for women — turning your hormones, beauty and longevity markers into insights you can actually act on. Physician-backed, tracked over time.
       </p>
+
+      <ul class="pillars" aria-label="What we measure">
+        <li>Hormonal health</li>
+        <li>Beauty</li>
+        <li>Longevity</li>
+      </ul>
 
       <form id="waitlist-form" novalidate>
         <div class="field" id="field">
-          <label for="email" class="visually-hidden">Adresse email</label>
+          <label for="email" class="visually-hidden">Email address</label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="ton@email.com"
+            placeholder="you@email.com"
             autocomplete="email"
             inputmode="email"
             required
             aria-describedby="form-msg"
           />
         </div>
-        <button type="submit" id="submit">Rejoindre</button>
+        <button type="submit" id="submit">Join the waitlist</button>
       </form>
 
       <p class="msg" id="form-msg" role="alert" aria-live="polite"></p>
-      <p class="hint">Pas de spam. Un seul email, au lancement.</p>
+      <p class="hint">Be one of our founding 500. No spam — just one email when we open access.</p>
+
+      <p class="trust">At-home · Physician-backed · Built around your cycle</p>
     </div>
 
     <!-- VUE 2 : confirmation -->
@@ -327,8 +348,8 @@
         <circle cx="40" cy="40" r="36" />
         <path d="M25 41 L36 52 L56 30" />
       </svg>
-      <h2>Tu es sur la liste 🎉</h2>
-      <p id="success-text">Merci ! On te prévient par email dès que Gini Code ouvre ses portes.</p>
+      <h2>You're on the list</h2>
+      <p id="success-text">Welcome — you're in line for our founding 500. We'll reach out by email as we open access.</p>
     </div>
   </main>
 
@@ -337,24 +358,23 @@
        CONFIG — Modifie uniquement ce bloc pour personnaliser le site
        ============================================================ */
     const CONFIG = {
-      productName: "Gini Code",
-      title:       "Le futur du code, <span class='accent'>en avant-première</span>",
-      subtitle:    "Gini Code arrive bientôt. Laisse ton email pour être prévenu·e dès l'ouverture — et rejoindre les premiers.",
+      productName: "Gini Health",
+      // Le titre accepte du HTML : <em>...</em> met le mot en italique + accent.
+      title:       "Blood testing, built around <em>your cycle</em>",
+      subtitle:    "At-home blood testing for women — turning your hormones, beauty and longevity markers into insights you can actually act on. Physician-backed, tracked over time.",
 
       // Endpoint qui reçoit le formulaire (POST avec le champ "email").
       // Laisse "" pour le mode démo (confirmation affichée sans envoi réel).
       // Ici : URL de la web app Google Apps Script (collecte vers Google Sheets).
-      //   -> Déploie le script (Déployer > Web app > Accès : "Tout le monde")
-      //      puis colle l'URL ".../exec" ci-dessous.
       formEndpoint: "https://script.google.com/macros/s/AKfycbxDZ013G6jIyvd8JchCYrfNVPXr7Zwmj450YuVacrejPpk5Lpz1ETqNsLU4DYthu3o1sA/exec",
 
-      successTitle: "Tu es sur la liste 🎉",
-      successText:  "Merci ! On te prévient par email dès que Gini Code ouvre ses portes.",
+      successTitle: "You're on the list",
+      successText:  "Welcome — you're in line for our founding 500. We'll reach out by email as we open access.",
     };
     /* ============================================================ */
 
     // --- Application de la config au DOM ---
-    document.title = CONFIG.productName + " — Rejoindre la liste d'attente";
+    document.title = CONFIG.productName + " — At-home blood testing for women";
     document.getElementById("title").innerHTML = CONFIG.title;
     document.getElementById("subtitle").textContent = CONFIG.subtitle;
     document.querySelector(".success h2").textContent = CONFIG.successTitle;
@@ -369,7 +389,6 @@
     const signup  = document.getElementById("signup");
     const success = document.getElementById("success");
 
-    // Validation email (simple et robuste)
     const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
     function setError(text) {
@@ -377,13 +396,11 @@
       field.classList.add("invalid");
       input.setAttribute("aria-invalid", "true");
     }
-
     function clearError() {
       msg.textContent = "";
       field.classList.remove("invalid");
       input.removeAttribute("aria-invalid");
     }
-
     input.addEventListener("input", clearError);
 
     function showSuccess() {
@@ -396,8 +413,8 @@
       e.preventDefault();
       const email = input.value.trim();
 
-      if (!email) { setError("Entre ton adresse email."); input.focus(); return; }
-      if (!isValidEmail(email)) { setError("Cette adresse email semble invalide."); input.focus(); return; }
+      if (!email) { setError("Please enter your email."); input.focus(); return; }
+      if (!isValidEmail(email)) { setError("That email doesn't look quite right."); input.focus(); return; }
 
       clearError();
 
@@ -410,9 +427,8 @@
       button.innerHTML = '<span class="spinner" aria-hidden="true"></span>';
 
       try {
-        // POST form-encodé en "no-cors" : c'est la méthode fiable avec Apps Script
-        // (pas de préflight CORS). La réponse est "opaque" — on ne peut pas lire son
-        // statut — donc si la requête aboutit sans erreur réseau, on confirme.
+        // POST form-encodé en "no-cors" : méthode fiable avec Apps Script
+        // (pas de préflight CORS). Réponse opaque -> succès si pas d'erreur réseau.
         await fetch(CONFIG.formEndpoint, {
           method: "POST",
           mode: "no-cors",
@@ -420,7 +436,7 @@
         });
         showSuccess();
       } catch (err) {
-        setError("Réseau indisponible. Vérifie ta connexion et réessaie.");
+        setError("Network unavailable. Check your connection and try again.");
       } finally {
         button.disabled = false;
         button.textContent = original;
