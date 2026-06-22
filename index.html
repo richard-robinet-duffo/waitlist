@@ -98,6 +98,11 @@
     .hero h1 em { font-style: normal; color: var(--orange); }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
     .hero-subheading { max-width: 56ch; margin: 32px 0 0; font-size: clamp(1rem, 1.2vw, 1.12rem); line-height: 1.55; color: rgba(28, 24, 21, 0.72); }
+    .hero-scarcity { margin-top: 24px; max-width: 380px; }
+    .hero-progress { height: 6px; border-radius: 999px; background: rgba(28, 24, 21, 0.1); overflow: hidden; }
+    .hero-progress span { display: block; height: 100%; width: 75%; border-radius: 999px; background: var(--accent); }
+    .hero-scarcity-label { margin: 11px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
+    .hero-scarcity-foot { margin: 4px 0 0; font-size: 0.8rem; color: rgba(28, 24, 21, 0.45); }
 
     /* BUTTONS */
     .btn {
@@ -226,7 +231,7 @@
 
     /* SCROLL REVEAL */
     .js-reveal :where(
-      .hero h1, .hero-actions, .hero-subheading,
+      .hero h1, .hero-actions, .hero-scarcity, .hero-subheading,
       .section-label, .section-heading, .section-lead, .section-copy,
       .section-sublabel, .section-footnote,
       .numbered-list li, .roman-list li, .bullet-list li,
@@ -240,7 +245,8 @@
 
     .js-reveal .hero h1 { transition-delay: 120ms; }
     .js-reveal .hero-actions { transition-delay: 280ms; }
-    .js-reveal .hero-subheading { transition-delay: 420ms; }
+    .js-reveal .hero-scarcity { transition-delay: 360ms; }
+    .js-reveal .hero-subheading { transition-delay: 440ms; }
     .js-reveal .section-heading { transition-delay: 80ms; }
     .js-reveal .section-copy { transition-delay: 120ms; }
     .js-reveal .section-copy + .section-copy { transition-delay: 220ms; }
@@ -285,6 +291,11 @@
         <div class="hero-actions">
           <a class="btn btn-primary" href="#waitlist">Get early access</a>
           <a class="btn btn-secondary" href="manifesto.html">Read our manifesto</a>
+        </div>
+        <div class="hero-scarcity">
+          <div class="hero-progress"><span></span></div>
+          <p class="hero-scarcity-label">Limited to 500 founding spots</p>
+          <p class="hero-scarcity-foot">First 500 get priority access · No spam, ever</p>
         </div>
         <p class="hero-subheading" id="subline">Gini is the comprehensive layer for women's health: at-home blood work timed to your cycle, connected to your symptoms, your history, and the care you actually need.</p>
       </div>
@@ -619,7 +630,7 @@
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce || !('IntersectionObserver' in window)) return;
       document.documentElement.classList.add('js-reveal');
-      var SELECTOR = ['.hero h1','.hero-actions','.hero-subheading','.section-label','.section-heading','.section-lead','.section-copy','.section-sublabel','.section-footnote','.numbered-list li','.roman-list li','.bullet-list li','.card','.waitlist-card','.footer-brand','.footer-links','.footer-copy'].join(', ');
+      var SELECTOR = ['.hero h1','.hero-actions','.hero-scarcity','.hero-subheading','.section-label','.section-heading','.section-lead','.section-copy','.section-sublabel','.section-footnote','.numbered-list li','.roman-list li','.bullet-list li','.card','.waitlist-card','.footer-brand','.footer-links','.footer-copy'].join(', ');
       var targets = document.querySelectorAll(SELECTOR);
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
