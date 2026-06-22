@@ -1,6 +1,6 @@
-# Gini — Waitlist landing page
+# Gini: Waitlist landing page
 
-The waitlist / early-access landing page for **Gini Health** — at-home blood testing for women, timed to the menstrual cycle.
+The waitlist / early-access landing page for **Gini Health**: at-home blood testing for women, timed to the menstrual cycle.
 
 🔗 **Live:** [gini.health](https://gini.health) · Backup alias: [gini-code.vercel.app](https://gini-code.vercel.app)
 
@@ -8,13 +8,13 @@ The waitlist / early-access landing page for **Gini Health** — at-home blood t
 
 ## What it is
 
-A single static page — **no framework, no build step** (plain HTML/CSS/JS). It collects
+A single static page, **no framework, no build step** (plain HTML/CSS/JS). It collects
 emails for the *Founding 500* and writes them to a Google Sheet via a Google Apps Script
 web app. Hosted on Vercel with automatic redeploys on every push to `main`.
 
 ### Features
 - Responsive, accessible (visible focus, `prefers-reduced-motion`), single-file.
-- Premium editorial design — warm bone background, Fraunces serif, Space Mono micro-labels, oxblood accent.
+- Premium editorial design: warm bone background, Fraunces serif, Space Mono micro-labels, oxblood accent.
 - Two-step capture: **email** → then an optional **qualifier** (“what brought you here?”).
 - **Founding 500** scarcity: live progress bar + **position in line** (`You're #N`).
 - **Referral** link (`?ref=`) so members can move up the line.
@@ -67,7 +67,7 @@ sheet (columns: `Date · Email · First Name · Reason · Referred By · User Ag
 1. Paste [`apps-script.gs`](apps-script.gs) into the Sheet’s **Extensions → Apps Script**, Save.
 2. **Deploy → Manage deployments → ✏️ edit the existing deployment → Version: New version → Deploy.**
    Editing the existing deployment keeps the same `/exec` URL. Creating a *new* deployment
-   generates a new URL — paste it back into `CONFIG.formEndpoint`.
+   generates a new URL, so paste it back into `CONFIG.formEndpoint`.
 3. Access must be **“Anyone”** so anonymous visitors can submit.
 
 ---
@@ -90,7 +90,7 @@ git push        # → Vercel redeploys gini.health automatically
 
 ## Local preview
 
-It’s a static file — just open it:
+It’s a static file, just open it:
 
 ```bash
 open index.html          # macOS

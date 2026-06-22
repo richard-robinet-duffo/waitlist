@@ -1,5 +1,5 @@
 /**
- * Gini Health — Waitlist → Google Sheets
+ * Gini Health: Waitlist → Google Sheets
  * Reçoit les inscriptions (POST depuis index.html) et les ajoute / met à jour
  * dans la feuille "Signups".
  *
