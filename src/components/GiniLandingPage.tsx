@@ -1,5 +1,6 @@
 "use client";
 
+import HeroVideoSequence from "@/components/HeroVideoSequence";
 import GlassNav from "@/components/GlassNav";
 import {
   JoinModalProvider,
@@ -43,17 +44,9 @@ function GiniLandingContent() {
 
       {/* Hero */}
       <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-5 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-          aria-hidden
-        >
-          <source src="/herovideo.mp4" type="video/mp4" />
-        </video>
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <HeroVideoSequence />
+        </div>
 
         <div className="relative z-10 mx-auto w-full max-w-5xl text-center">
           <div className="flex w-full justify-center overflow-x-hidden px-1">
@@ -63,12 +56,12 @@ function GiniLandingContent() {
               duration={2.1}
               speed={0.05}
               characterSet="abcdefghijklmnopqrstuvwxyz0123456789' "
-              className="max-w-full text-[clamp(1.2rem,6.5vw,4rem)] leading-[1.08] font-semibold tracking-[-0.04em] text-neutral-950 lowercase"
+              className="max-w-full text-[clamp(1.2rem,6.5vw,4rem)] leading-[1.08] font-semibold tracking-[-0.04em] text-white lowercase drop-shadow-[0_1px_12px_rgba(0,0,0,0.35)]"
             >
-              women&apos;s health finally decoded
+              women&apos;s health deciphered
             </TextScramble>
           </div>
-          <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-neutral-500 sm:mt-8 sm:text-[17px]">
+          <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-white/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.3)] sm:mt-8 sm:text-[17px]">
             Your assistant for navigating your health, connecting hormones, biomarkers, energy,
             and longevity in one clear picture.
           </p>
@@ -76,7 +69,7 @@ function GiniLandingContent() {
             <GlassButton
               onClick={openJoinModal}
               className="!rounded-full"
-              contentClassName="text-[14px] font-semibold text-neutral-950"
+              contentClassName="text-[14px] font-semibold text-white"
             >
               Join Now
             </GlassButton>
