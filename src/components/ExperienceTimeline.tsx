@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
+  useInView,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -74,7 +75,15 @@ function useIsMobile() {
   return isMobile;
 }
 
-function StepVideo({ src, active }: { src: string; active: boolean }) {
+function StepVideo({
+  src,
+  active,
+  sizeClassName,
+}: {
+  src: string;
+  active: boolean;
+  sizeClassName?: string;
+}) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -107,7 +116,13 @@ function StepVideo({ src, active }: { src: string; active: boolean }) {
   }, [active, src]);
 
   return (
-    <div className="relative h-[96px] w-[96px] shrink-0 overflow-hidden bg-gini-surface sm:h-[120px] sm:w-[120px] md:h-[140px] md:w-[140px] lg:h-[180px] lg:w-[180px]">
+    <div
+      className={[
+        "relative shrink-0 overflow-hidden bg-gini-surface",
+        sizeClassName ??
+          "h-[96px] w-[96px] sm:h-[120px] sm:w-[120px] md:h-[140px] md:w-[140px] lg:h-[180px] lg:w-[180px]",
+      ].join(" ")}
+    >
       <video
         key={src}
         ref={ref}
@@ -200,12 +215,57 @@ function Milestone({
   );
 }
 
+/** Mobile: one step in the flowing vertical timeline */
+function MobileMilestone({ step }: { step: (typeof STEPS)[number] }) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-15% 0px -15% 0px" });
+
+  return (
+    <motion.article
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : undefined}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="relative"
+    >
+      {/* dot on the rail */}
+      <span
+        className="absolute -left-[51px] top-1.5 h-3.5 w-3.5 rounded-full border-2 bg-gini-surface transition-colors duration-500"
+        style={{
+          borderColor: TURQUOISE,
+          backgroundColor: inView ? TURQUOISE : undefined,
+        }}
+        aria-hidden
+      />
+
+      <p
+        className="text-[11px] font-medium tracking-[0.18em] uppercase"
+        style={{ color: TURQUOISE }}
+      >
+        {step.number}
+      </p>
+      <h3 className="mt-1 text-[1.25rem] font-semibold leading-snug tracking-[-0.03em] text-neutral-950">
+        {step.title}
+      </h3>
+      <p className="mt-1.5 text-[14px] leading-relaxed text-neutral-500">
+        {step.body}
+      </p>
+
+      <StepVideo
+        src={step.video}
+        active={inView}
+        sizeClassName="mt-4 h-[180px] w-[180px]"
+      />
+    </motion.article>
+  );
+}
+
 export default function ExperienceTimeline() {
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.88", "end 0.05"],
+    offset: isMobile ? ["start 0.85", "end 0.4"] : ["start 0.88", "end 0.05"],
   });
 
   const lineProgress = useTransform(
@@ -213,6 +273,33 @@ export default function ExperienceTimeline() {
     [0, LINE_END_PROGRESS],
     [0, 1]
   );
+
+  const mobileLineProgress = useTransform(scrollYProgress, [0, 0.95], [0, 1]);
+
+  if (isMobile) {
+    // Mobile: normal-flow vertical timeline — rail on the left, steps stacked
+    return (
+      <section
+        id="how-it-works"
+        ref={containerRef}
+        className="relative scroll-mt-24 bg-gini-surface py-14"
+        aria-label="How Gini works"
+      >
+        <div className="relative mx-auto max-w-md px-5">
+          <motion.div
+            className="absolute bottom-2 left-[27px] top-2 w-[2px] origin-top rounded-full"
+            style={{ backgroundColor: TURQUOISE, scaleY: mobileLineProgress }}
+            aria-hidden
+          />
+          <div className="flex flex-col gap-14 pl-[3.25rem]">
+            {STEPS.map((step) => (
+              <MobileMilestone key={step.number} step={step} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
