@@ -50,8 +50,8 @@ function GiniLandingContent() {
             <TextScramble
               as="h1"
               singleLine
-              duration={0.9}
-              speed={0.03}
+              duration={3.6}
+              speed={0.05}
               characterSet="abcdefghijklmnopqrstuvwxyz0123456789' "
               className="max-w-full text-[clamp(1.2rem,6.5vw,4rem)] leading-[1.08] font-semibold tracking-[-0.04em] text-neutral-950 lowercase"
             >
