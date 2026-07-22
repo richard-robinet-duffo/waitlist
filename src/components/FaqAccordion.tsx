@@ -42,20 +42,22 @@ export default function FaqAccordion() {
   return (
     <section
       id="faq"
-      className="scroll-mt-24 border-t border-neutral-200/80 px-5 py-20 sm:scroll-mt-28 sm:px-6 sm:py-28"
+      className="scroll-mt-24 border-t border-neutral-200/80 py-12 sm:scroll-mt-28 sm:py-16"
     >
-      <div className="mx-auto max-w-3xl">
-        <h2 className="text-3xl font-semibold tracking-[-0.03em]">FAQ</h2>
-        <div className="mt-10 divide-y divide-neutral-200/80 border-y border-neutral-200/80">
+      <div className="mx-auto max-w-[38rem] px-5 sm:px-6">
+        <h2 className="text-center text-[clamp(1.5rem,3vw,1.85rem)] font-semibold tracking-[-0.03em]">
+          FAQ
+        </h2>
+        <div className="mt-6 divide-y divide-neutral-200/80 border-y border-neutral-200/80">
           {FAQ_ITEMS.map((item) => (
             <details key={item.q} className="group">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-[17px] font-semibold text-neutral-950 transition-colors hover:text-black [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-left text-[16px] font-semibold text-neutral-950 transition-colors hover:text-black sm:text-[17px] [&::-webkit-details-marker]:hidden">
                 {item.q}
                 <span className="transition-transform duration-200 group-open:rotate-180">
                   <ChevronIcon />
                 </span>
               </summary>
-              <p className="pb-5 text-[16px] leading-relaxed text-neutral-500">
+              <p className="pb-4 text-[15px] leading-[1.7] text-neutral-500 sm:text-[16px]">
                 {item.a}
               </p>
             </details>

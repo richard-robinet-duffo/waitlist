@@ -15,10 +15,10 @@ const STATS = [
 
 export default function ManifestoStats() {
   return (
-    <section className="border-y border-neutral-200/80 bg-gini-surface px-5 py-16 sm:px-6 sm:py-24">
-      <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-3 sm:gap-8">
+    <section className="border-y border-neutral-200/80 bg-gini-surface px-5 py-10 sm:px-6 sm:py-14">
+      <div className="mx-auto grid max-w-4xl gap-8 sm:grid-cols-3 sm:gap-6">
         {STATS.map((stat) => (
-          <div key={stat.value} className="text-center sm:text-left">
+          <div key={stat.value} className="text-center">
             <p
               className="text-[clamp(2rem,4vw,2.75rem)] font-semibold tracking-[-0.04em]"
               style={{ color: "#00ced1" }}
