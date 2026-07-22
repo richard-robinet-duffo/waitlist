@@ -100,7 +100,7 @@ export default function GlassNav() {
                 src="/gini-wordmark.png?v=2"
                 alt="Gini"
                 className={[
-                  "h-auto w-auto bg-transparent object-contain object-left transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                  "w-auto bg-transparent object-contain object-left transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
                   showDesktopLinks ? "h-8 sm:h-9" : "h-7 sm:h-8",
                 ].join(" ")}
               />

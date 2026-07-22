@@ -58,24 +58,14 @@ export function TypewriterLoop({
     pauseAfterDelete,
   ]);
 
-  const longestPhrase = phrases.reduce(
-    (longest, phrase) => (phrase.length > longest.length ? phrase : longest),
-    ""
-  );
-
   return (
-    <span className={`relative inline-block whitespace-nowrap ${className}`}>
-      <span className="invisible" aria-hidden>
-        {longestPhrase}
-      </span>
-      <span className="absolute inset-0 whitespace-nowrap">
-        {displayText}
-        <span
-          aria-hidden
-          className="typewriter-cursor ml-[1px] inline-block w-[2px] translate-y-[0.06em] bg-current align-middle"
-          style={{ height: "0.92em" }}
-        />
-      </span>
+    <span className={`inline-block whitespace-nowrap ${className}`}>
+      {displayText}
+      <span
+        aria-hidden
+        className="typewriter-cursor ml-[1px] inline-block w-[2px] translate-y-[0.06em] bg-current align-middle"
+        style={{ height: "0.92em" }}
+      />
     </span>
   );
 }
