@@ -47,13 +47,18 @@ const STEPS = [
 const WAVE_PATH =
   "M 200 0 C 80 90 320 180 200 270 C 80 360 320 450 200 540 C 80 630 320 720 200 810 C 80 900 320 990 200 1080";
 
-/** Step 5 finishes near end of scroll — short tail before next section */
+/** Each step fades in as the wave reaches it — keep late steps early enough to read */
+const REVEAL_SCHEDULE = [
+  { start: 0.08, end: 0.14 },
+  { start: 0.17, end: 0.23 },
+  { start: 0.26, end: 0.32 },
+  { start: 0.35, end: 0.41 },
+  { start: 0.44, end: 0.5 },
+] as const;
+
 const TIMELINE_SCROLL_VH = 108;
 const TIMELINE_SCROLL_VH_MOBILE = 138;
-const REVEAL_START = 0.22;
-const REVEAL_STEP = 0.15;
-const REVEAL_DURATION = 0.05;
-const LINE_END_PROGRESS = 0.88;
+const LINE_END_PROGRESS = 0.58;
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -128,8 +133,8 @@ function Milestone({
   progress: MotionValue<number>;
   isMobile: boolean;
 }) {
-  const revealStart = REVEAL_START + index * REVEAL_STEP;
-  const revealEnd = revealStart + REVEAL_DURATION;
+  const revealStart = REVEAL_SCHEDULE[index].start;
+  const revealEnd = REVEAL_SCHEDULE[index].end;
 
   const opacity = useTransform(progress, [revealStart, revealEnd], [0, 1]);
   const y = useTransform(progress, [revealStart, revealEnd], [18, 0]);
@@ -145,12 +150,7 @@ function Milestone({
   }, [progress, revealStart]);
 
   const isLeft = index % 2 === 0;
-  const topPercent =
-    index === STEPS.length - 1
-      ? isMobile
-        ? 84
-        : 82
-      : 1 + index * (isMobile ? 20.5 : 18.5);
+  const topPercent = 6 + index * (isMobile ? 16 : 14.5);
 
   return (
     <motion.article
