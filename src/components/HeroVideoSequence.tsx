@@ -24,26 +24,32 @@ function useIsMobile() {
 
 export default function HeroVideoSequence() {
   const isMobile = useIsMobile();
-  const ref = useRef<HTMLVideoElement>(null);
+  const refs = useRef<(HTMLVideoElement | null)[]>([]);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
-
-    video.src = HERO_VIDEOS[index];
-    video.load();
-    video.play().catch(() => {});
+    if (isMobile) return;
+    refs.current.forEach((video, i) => {
+      if (!video) return;
+      if (i === index) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
   }, [index, isMobile]);
 
   if (isMobile) {
-    // Mobile: all three videos stacked and playing in parallel
+    // Mobile: all three videos stacked and playing in parallel.
+    // Lighter -mobile encodes + poster frames so the hero paints instantly.
     return (
       <div className="relative flex h-full w-full flex-col">
         {HERO_VIDEOS.map((src) => (
           <video
             key={src}
-            src={src}
+            src={src.replace(".mp4", "-mobile.mp4")}
+            poster={src.replace(".mp4", "-poster.jpg")}
             autoPlay
             muted
             loop
@@ -60,15 +66,28 @@ export default function HeroVideoSequence() {
     );
   }
 
+  // Desktop: keep all three videos mounted and preloaded, crossfade between
+  // them so the loop never flashes a blank frame while the next one loads
   return (
-    <video
-      ref={ref}
-      autoPlay
-      muted
-      playsInline
-      preload="auto"
-      onEnded={() => setIndex((current) => (current + 1) % HERO_VIDEOS.length)}
-      className="absolute inset-0 h-full w-full object-cover"
-    />
+    <div className="absolute inset-0">
+      {HERO_VIDEOS.map((src, i) => (
+        <video
+          key={src}
+          ref={(el) => {
+            refs.current[i] = el;
+          }}
+          src={src}
+          autoPlay={i === 0}
+          muted
+          playsInline
+          preload="auto"
+          onEnded={() => setIndex((current) => (current + 1) % HERO_VIDEOS.length)}
+          className={[
+            "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
+            i === index ? "opacity-100" : "opacity-0",
+          ].join(" ")}
+        />
+      ))}
+    </div>
   );
 }
