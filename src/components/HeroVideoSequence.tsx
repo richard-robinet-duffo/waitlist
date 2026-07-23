@@ -26,6 +26,9 @@ export default function HeroVideoSequence() {
   const isMobile = useIsMobile();
   const refs = useRef<(HTMLVideoElement | null)[]>([]);
   const [index, setIndex] = useState(0);
+  // Defer fetching videos 2 and 3 until video 1 is playing, so the first
+  // video gets the full bandwidth and starts as early as possible
+  const [warm, setWarm] = useState(false);
 
   useEffect(() => {
     if (isMobile) return;
@@ -39,6 +42,22 @@ export default function HeroVideoSequence() {
       }
     });
   }, [index, isMobile]);
+
+  useEffect(() => {
+    if (isMobile || warm) return;
+    // Fallback in case the playing event never fires (e.g. autoplay blocked)
+    const timeout = setTimeout(() => setWarm(true), 2500);
+    return () => clearTimeout(timeout);
+  }, [isMobile, warm]);
+
+  useEffect(() => {
+    if (isMobile || !warm) return;
+    refs.current.forEach((video, i) => {
+      if (!video || i === 0) return;
+      video.preload = "auto";
+      video.load();
+    });
+  }, [isMobile, warm]);
 
   if (isMobile) {
     // Mobile: all three videos stacked and playing in parallel.
@@ -77,10 +96,12 @@ export default function HeroVideoSequence() {
             refs.current[i] = el;
           }}
           src={src}
+          poster={src.replace(".mp4", "-poster.jpg")}
           autoPlay={i === 0}
           muted
           playsInline
-          preload="auto"
+          preload={i === 0 || warm ? "auto" : "none"}
+          onPlaying={i === 0 ? () => setWarm(true) : undefined}
           onEnded={() => setIndex((current) => (current + 1) % HERO_VIDEOS.length)}
           className={[
             "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
