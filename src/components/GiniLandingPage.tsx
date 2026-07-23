@@ -42,6 +42,16 @@ function GiniLandingContent() {
       <GlassFilter />
       <GlassNav />
 
+      {/* Typewriter */}
+      <section className="relative flex min-h-[100svh] items-center justify-center px-5 py-20 sm:px-6 sm:py-24">
+        <div className="mx-auto w-full max-w-5xl text-center">
+          <p className="text-[clamp(1.35rem,6vw,3.25rem)] leading-[1.25] font-semibold tracking-[-0.03em] text-neutral-950 sm:leading-[1.2]">
+            what you&apos;re feeling is not{" "}
+            <TypewriterLoop className="mt-1 block text-[#00ced1] sm:mt-0 sm:inline" />
+          </p>
+        </div>
+      </section>
+
       {/* Hero */}
       <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-5 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20">
         <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -74,16 +84,6 @@ function GiniLandingContent() {
               Join Now
             </GlassButton>
           </div>
-        </div>
-      </section>
-
-      {/* Typewriter */}
-      <section className="relative flex min-h-[100svh] items-center justify-center px-5 py-20 sm:px-6 sm:py-24">
-        <div className="mx-auto w-full max-w-5xl text-center">
-          <p className="text-[clamp(1.35rem,6vw,3.25rem)] leading-[1.25] font-semibold tracking-[-0.03em] text-neutral-950 sm:leading-[1.2]">
-            what you&apos;re feeling is not{" "}
-            <TypewriterLoop className="mt-1 block text-[#00ced1] sm:mt-0 sm:inline" />
-          </p>
         </div>
       </section>
 
@@ -272,12 +272,12 @@ function GiniLandingContent() {
             <button
               type="button"
               onClick={openJoinModal}
-              className="inline-block max-w-[min(100%,260px)] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] sm:max-w-[300px]"
+              className="inline-block max-w-[min(100%,360px)] transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] sm:max-w-[440px]"
               aria-label="Join Now"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/gini-join-button.png?v=5"
+                src="/ginijoinnowbutton.png"
                 alt="Join Now"
                 className="h-auto w-full select-none"
                 draggable={false}
